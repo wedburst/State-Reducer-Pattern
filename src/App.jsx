@@ -15,7 +15,17 @@ function Toggle() {
   const [clicksSinceReset, setClicksSinceReset] = React.useState(0)
 	const tooManyClicks = clicksSinceReset >= 4
 
-  const { on, toggle, setOn, setOff } = useToggle();
+  const { on, toggle, setOn, setOff } = useToggle({
+    modifyStateChange(currentState, changes) {
+			if (tooManyClicks) {
+				// other changes are fine, but on needs to be unchanged
+				return { ...changes, on: currentState.on }
+			} else {
+				// the changes are fine
+				return changes
+			}
+		},
+  });
 
   function handleClick() {
 		toggle()
