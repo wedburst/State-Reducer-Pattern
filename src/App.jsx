@@ -24,8 +24,8 @@ function toggleReducer(state, action) {
 	}
 }
 
-function useToggle() {
-  const [{ on }, dispatch] = React.useReducer(toggleReducer, { on: false })
+function useToggle({reducer = toggleReducer}) {
+  const [{ on }, dispatch] = React.useReducer(reducer, { on: false })
   // const [on, setOnState] = React.useState(false);
 
   // const toggle = () => setOnState((o) => !o);
@@ -67,7 +67,10 @@ function Toggle() {
     <div>
       <button onClick={setOff}>Switch Off</button>
       <button onClick={setOn}>Switch On</button>
-      <SwitchForm on={on} onClick={handleClick} />
+      <SwitchForm on={on} onClick={() => {
+					toggle()
+					setClicksSinceReset((count) => count + 1)
+				}} />
       {tooManyClicks ? (
         <button onClick={() => setClicksSinceReset(0)}>Reset</button>
       ) : null}
