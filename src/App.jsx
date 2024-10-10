@@ -12,13 +12,24 @@ function useToggle() {
 }
 
 function Toggle() {
+  const [clicksSinceReset, setClicksSinceReset] = React.useState(0)
+	const tooManyClicks = clicksSinceReset >= 4
+
   const { on, toggle, setOn, setOff } = useToggle();
+
+  function handleClick() {
+		toggle()
+		setClicksSinceReset((count) => count + 1)
+	}
 
   return (
     <div>
       <button onClick={setOff}>Switch Off</button>
       <button onClick={setOn}>Switch On</button>
-      <SwitchForm on={on} onClick={toggle} />
+      <SwitchForm on={on} onClick={handleClick} />
+      {tooManyClicks ? (
+				<button onClick={() => setClicksSinceReset(0)}>Reset</button>
+			) : null}
     </div>
   );
 }
