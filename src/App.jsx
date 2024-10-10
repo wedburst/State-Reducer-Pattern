@@ -16,8 +16,9 @@ function Toggle() {
 	const tooManyClicks = clicksSinceReset >= 4
 
   const { on, toggle, setOn, setOff } = useToggle({
-    modifyStateChange(currentState, changes) {
-			if (tooManyClicks) {
+    reducer(currentState, action) {
+			const changes = toggleReducer(currentState, action)
+			if (tooManyClicks && action.type === 'TOGGLE') {
 				// other changes are fine, but on needs to be unchanged
 				return { ...changes, on: currentState.on }
 			} else {
