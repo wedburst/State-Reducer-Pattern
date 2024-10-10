@@ -9,13 +9,13 @@ const actionTypes = {
 
 function toggleReducer(state, action) {
 	switch (action.type) {
-		case 'TOGGLE': {
+		case actionTypes.toggle: {
 			return { on: !state.on }
 		}
-		case 'ON': {
+		case actionTypes.on: {
 			return { on: true }
 		}
-		case 'OFF': {
+		case actionTypes.off: {
 			return { on: false }
 		}
 		default: {
