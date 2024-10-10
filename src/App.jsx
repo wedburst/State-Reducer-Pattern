@@ -1,6 +1,12 @@
 import React from "react";
 import SwitchForm from "./components/Switch";
 
+const actionTypes = {
+	toggle: 'TOGGLE',
+	on: 'ON',
+	off: 'OFF',
+}
+
 function toggleReducer(state, action) {
 	switch (action.type) {
 		case 'TOGGLE': {
@@ -17,7 +23,7 @@ function toggleReducer(state, action) {
 		}
 	}
 }
-// 
+
 function useToggle() {
   const [on, setOnState] = React.useState(false);
 
