@@ -25,14 +25,21 @@ function toggleReducer(state, action) {
 }
 
 function useToggle() {
-  const [on, setOnState] = React.useState(false);
+  const [{ on }, dispatch] = React.useReducer(toggleReducer, { on: false })
+  // const [on, setOnState] = React.useState(false);
 
-  const toggle = () => setOnState((o) => !o);
-  const setOn = () => setOnState(true);
-  const setOff = () => setOnState(false);
+  // const toggle = () => setOnState((o) => !o);
+  // const setOn = () => setOnState(true);
+  // const setOff = () => setOnState(false);
+
+  const toggle = () => dispatch({ type: actionTypes.toggle })
+	const setOn = () => dispatch({ type: actionTypes.on })
+	const setOff = () => dispatch({ type: actionTypes.off })
 
   return { on, toggle, setOn, setOff };
 }
+
+export { useToggle, actionTypes };
 
 function Toggle() {
   const [clicksSinceReset, setClicksSinceReset] = React.useState(0);
